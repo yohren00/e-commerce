@@ -5,13 +5,12 @@ import "./directory.styles.scss";
 
 export default function Directory() {
     const [data, setData] = useState(DirectoryData);
-    console.log(DirectoryData);
 
     return <>
         <div className="directory-menu">
             {
-                data.map(e => (
-                    <MenuItem key={e.id} title={e.title} img={e.imageUrl} size={e.size} />
+                data.map(({ id, ...sectionsProps }) => (
+                    <MenuItem key={id} {...sectionsProps} />
                 ))
             }
         </div>
