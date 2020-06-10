@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../input/input.jsx";
 import CustomButton from "../custcom-button/custom-button.jsx";
-import { auth, createUsersProfileDocument } from "../../firebase/firebase.utils.js";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils.js";
 import "./sign-up.styles.scss";
 import Swal from "sweetalert2";
 
@@ -13,7 +13,9 @@ export default function SignUp() {
         confirmPassword: ""
     });
 
+
     const handleSubmit = async e => {
+        const { displayName } = loginData;
         e.preventDefault();
         if (loginData.password !== loginData.confirmPassword) {
             Swal.fire({
@@ -25,18 +27,20 @@ export default function SignUp() {
         }
         try {
             const { user } = await auth.createUserWithEmailAndPassword(loginData.email, loginData.password);
-            await createUsersProfileDocument(user, loginData.displayName);
+            console.log(user)
+            await createUserProfileDocument(user, { displayName });
+
             setLoginData({
                 displayName: "",
                 email: "",
                 password: "",
                 confirmPassword: ""
-            })
+            });
 
         } catch (error) {
             console.error(error);
         }
-    };
+    }
 
     const handleChange = e => {
         const { value, name } = e.target;
@@ -47,7 +51,7 @@ export default function SignUp() {
         <div className="sign-up">
             <h2 className="title">註冊帳號</h2>
             <span>註冊您的email與密碼</span>
-            <from className="sign-up-form" onSubmit={handleSubmit}>
+            <form className="sign-up-form" onSubmit={handleSubmit}>
                 <Input
                     type="text"
                     name="displayName"
@@ -62,7 +66,7 @@ export default function SignUp() {
                     required
                     value={loginData.email}
                     handleChange={handleChange}
-                    label="email"
+                    label="Email"
                 />
                 <Input
                     type="password"
@@ -80,8 +84,8 @@ export default function SignUp() {
                     handleChange={handleChange}
                     label="密碼確認"
                 />
-                <CustomButton type="submit" >註冊</CustomButton>
-            </from>
+                <CustomButton type="submit" >確認</CustomButton>
+            </form>
         </div>
 
     </>

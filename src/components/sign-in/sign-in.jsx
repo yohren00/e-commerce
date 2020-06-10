@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+// import TextField from '@material-ui/core/TextField';
+// import Button from '@material-ui/core/Button';
 import "./sign-in.style.scss";
 import Input from "../input/input.jsx";
 import CustomButton from "../custcom-button/custom-button.jsx";
-import { signInWithGoogle } from "../../firebase/firebase.utils.js";
+import { signInWithGoogle, auth } from "../../firebase/firebase.utils.js";
 
 
 export default function SignIN() {
@@ -13,22 +13,28 @@ export default function SignIN() {
         password: "",
     });
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
+        try {
+            await auth.signInWithEmailAndPassword(accountPassword.email, accountPassword.password);
+            setAccountPassword({ email: "", password: "" })
+        } catch (error) {
+            console.log(error);
+        }
         setAccountPassword({ ...accountPassword, email: "", password: "", });
-    }
+    };
 
     const handleChange = e => {
         const { value, name } = e.target;
         setAccountPassword({ ...accountPassword, [name]: value });
-    }
+    };
 
 
     return <>
         <div className="sign-in">
             <h2>登入</h2>
             <span>使用您的帳號</span>
-            <from onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <Input
                     name="email"
                     type="email"
@@ -72,7 +78,7 @@ export default function SignIN() {
                     <Button className="button1" variant="contained" color="primary">登入</Button>
                     <Button className="button2" variant="contained" color="primary">google登入</Button>
                 </div> */}
-            </from>
+            </form>
         </div>
     </>
 }

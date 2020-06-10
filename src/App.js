@@ -35,15 +35,12 @@ function App() {
       }
       setUser({ ...user, currentUser: userAuth });
     });
-    // unsubscribeFromAuth = auth.onAuthStateChanged(userAuth => {
-    //   setUser(userAuth);
-    //   createUserProfileDocument(userAuth);
-    // })
   }
 
   let componentWillUnmount = () => {
     unsubscribeFromAuth();
   }
+  console.log(user.currentUser)
 
   return <>
     <div>
