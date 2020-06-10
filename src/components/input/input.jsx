@@ -3,7 +3,6 @@ import "./input.styles.scss";
 
 export default function Input({ handleChange, label, ...otherProps }) {
 
-    console.log({ ...otherProps })
 
     return <>
         <div className="group">

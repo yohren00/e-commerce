@@ -17,7 +17,7 @@ import { withRouter, Link } from "react-router-dom";
 // })
 
 const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
-    console.log(history)
+    // console.log(history)
 
     return <>
         <div className={`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)}>
