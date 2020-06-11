@@ -14,12 +14,16 @@ function App() {
 
 
   useEffect(() => {
-    componentDidMoubt();
-  }, [])
+    console.log("useEffect");
+    componentDidMount();
+    return () => {
+      componentWillUnmount();
+    };
+  }, []);
 
   let unsubscribeFromAuth = null
 
-  const componentDidMoubt = () => {
+  const componentDidMount = () => {
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -32,15 +36,14 @@ function App() {
             }
           });
         });
-      }
+      };
       setUser({ ...user, currentUser: userAuth });
     });
-  }
+  };
 
-  let componentWillUnmount = () => {
+  const componentWillUnmount = () => {
     unsubscribeFromAuth();
-  }
-  console.log(user.currentUser)
+  };
 
   return <>
     <div>
@@ -53,5 +56,56 @@ function App() {
     </div>
   </>
 }
+
+
+// class App extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       currentUser: null
+//     };
+//   }
+
+//   unsubscribeFromAuth = null
+
+//   componentDidMount = () => {
+//     console.log("componentDidMount")
+
+//     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+//       if (userAuth) {
+//         const userRef = await createUserProfileDocument(userAuth);
+//         userRef.onSnapshot(snapShot => {
+//           this.setState({
+//             currentUser: {
+//               id: snapShot.id,
+//               ...snapShot.data()
+//             }
+//           });
+//         });
+//       };
+//       this.setState({ currentUser: userAuth });
+//     });
+//   };
+
+//   componentWillUnmount = () => {
+//     console.log("componentWillUnmount")
+
+//     this.unsubscribeFromAuth();
+//   };
+
+//   render() {
+//     return <>
+//       <div>
+//         <Header currentUser={this.state.currentUser} />
+//         <Switch>
+//           <Route exact path="/" component={HomePage}></Route>
+//           <Route exact path="/shop" component={ShopPage}></Route>
+//           <Route exact path="/signin" component={SignInPage}></Route>
+//         </Switch>
+//       </div>
+//     </>
+//   }
+// }
+
 
 export default App;

@@ -84,7 +84,7 @@ export default function SignUp() {
                     handleChange={handleChange}
                     label="密碼確認"
                 />
-                <CustomButton type="submit" >確認</CustomButton>
+                <CustomButton type="submit" >註冊</CustomButton>
             </form>
         </div>
 

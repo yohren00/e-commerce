@@ -53,7 +53,7 @@ export default function SignIN() {
                 />
                 <div className="button">
                     <CustomButton type="submit" >確認</CustomButton>
-                    <CustomButton onClick={signInWithGoogle} isGoogleSignIn>使用google登入</CustomButton>
+                    <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>使用google登入</CustomButton>
                 </div>
                 {/* <div>
                     <TextField
