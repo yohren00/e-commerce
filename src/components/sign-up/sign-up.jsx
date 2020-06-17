@@ -20,8 +20,24 @@ export default function SignUp() {
         if (loginData.password !== loginData.confirmPassword) {
             Swal.fire({
                 icon: 'error',
-                title: '密碼錯誤',
+                title: '密碼不同',
                 text: '請再次從新輸入密碼!',
+            })
+            return;
+        }
+        if (loginData.password.length < 6 && loginData.confirmPassword.length < 6) {
+            Swal.fire({
+                icon: 'error',
+                title: '密碼長度小於6位',
+                text: '請再次從新輸入密碼!',
+            })
+            return;
+        }
+        if (loginData.password.length > 6 && loginData.confirmPassword.length > 6 && loginData.password === loginData.confirmPassword) {
+            Swal.fire({
+                icon: 'success',
+                title: '註冊成功',
+                text: '開始遊覽網站!',
             })
             return;
         }

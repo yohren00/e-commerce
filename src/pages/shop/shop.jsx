@@ -4,7 +4,6 @@ import CollectionPreview from "../../components/collection-preview/collection-pr
 
 export default function Shop() {
     const [shopdata, setShopdata] = useState(ShopData);
-    console.log(shopdata);
 
     return <>
         <div className="shop-page">

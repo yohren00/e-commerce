@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./pages/hmoepage/homepage.jsx";
 import ShopPage from "./pages/shop/shop.jsx";
 import Header from "./components/header/header.jsx";
@@ -14,11 +14,11 @@ import { setCurrentUser } from "./redux/user/user.actions.js";
 function App() {
 
   const dispatch = useDispatch();
-  const currentUser = user => {
+  const dispatchSetCurrentUser = user => {
     dispatch(setCurrentUser(user))
   };
 
-  // const [user, setUser] = useState({ currentUser: null });
+  const currentUser = useSelector(state => state.user.currentUser);
 
   useEffect(() => {
     console.log("useEffect");
@@ -31,17 +31,18 @@ function App() {
   let unsubscribeFromAuth = null
 
   const componentDidMount = () => {
+
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         userRef.onSnapshot(snapShot => {
-          currentUser({
+          dispatchSetCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
           })
         });
       };
-      currentUser(userAuth);
+      dispatchSetCurrentUser(userAuth);
     });
   };
 
@@ -55,7 +56,13 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage}></Route>
         <Route exact path="/shop" component={ShopPage}></Route>
-        <Route exact path="/signin" component={SignInPage}></Route>
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            currentUser ? (<Redirect to="/" />) : (<SignInPage />)}
+        >
+        </Route>
       </Switch>
     </div>
   </>
