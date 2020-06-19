@@ -23,6 +23,7 @@ import { selectCartItems } from "../../redux/cart/cart.selectors.js";
 function CartItem() {
 
     const cartItem = useSelector(state => selectCartItems(state));
+    console.log(cartItem)
     return <>
         {
             cartItem.map(cartItem =>

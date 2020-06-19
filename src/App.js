@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import { Route, Switch, Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+
+import './App.css';
+
 import HomePage from "./pages/hmoepage/homepage.jsx";
 import ShopPage from "./pages/shop/shop.jsx";
 import Header from "./components/header/header.jsx";
 import SignInPage from "./pages/sign-in-page/sign-in-page.jsx";
+import CheckOut from "./pages/checkout/checkout.jsx";
+
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils.js";
-import { connect } from "react-redux";
-import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentUser } from "./redux/user/user.actions.js";
+import { selectCurrentUser } from "./redux/user/user.selectors.js";
 
 
 function App() {
@@ -18,10 +22,9 @@ function App() {
     dispatch(setCurrentUser(user))
   };
 
-  const currentUser = useSelector(state => state.user.currentUser);
+  const currentUser = useSelector(state => selectCurrentUser(state));
 
   useEffect(() => {
-    console.log("useEffect");
     componentDidMount();
     return () => {
       componentWillUnmount();
@@ -54,60 +57,18 @@ function App() {
     <div>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage}></Route>
-        <Route exact path="/shop" component={ShopPage}></Route>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
         <Route
           exact
           path="/signin"
           render={() =>
             currentUser ? (<Redirect to="/" />) : (<SignInPage />)}
-        >
-        </Route>
+        />
+        <Route exact path="/checkout" component={CheckOut} />
       </Switch>
     </div>
   </>
 }
 export default App;
 
-
-// class App extends React.Component {
-
-//   unsubscribeFromAuth = null
-
-//   componentDidMount() {
-//     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-//       if (userAuth) {
-//         const userRef = await createUserProfileDocument(userAuth);
-//         userRef.onSnapshot(snapShot => {
-//           this.props.setCurrentUser({
-//             id: snapShot.id,
-//             ...snapShot.data()
-//           });
-//         });
-
-//       };
-//       this.props.setCurrentUser(userAuth);
-//     });
-//   };
-
-//   componentWillUnmount = () => {
-//     this.unsubscribeFromAuth();
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <Header />
-//         <Switch>
-//           <Route exact path="/" component={HomePage}></Route>
-//           <Route exact path="/shop" component={ShopPage}></Route>
-//           <Route exact path="/signin" component={SignInPage}></Route>
-//         </Switch>
-//       </div>)
-//   }
-// }
-// const mapDispatchToProps = dispatch => ({
-//   setCurrentUser: user => dispatch(setCurrentUser(user))
-// })
-
-// export default connect(null, mapDispatchToProps)(App);
