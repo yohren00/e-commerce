@@ -10,7 +10,6 @@ import { selectCollctionArray } from "../../redux/shop/shop.selectors.js";
 const CollectionOverview = () => {
 
     const shopCollections = useSelector(state => selectCollctionArray(state));
-    console.log(shopCollections)
 
     return <>
         <div className="collections-overview">

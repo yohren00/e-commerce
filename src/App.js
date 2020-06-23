@@ -22,6 +22,7 @@ function App() {
     dispatch(setCurrentUser(user))
   };
 
+
   const currentUser = useSelector(state => selectCurrentUser(state));
 
   useEffect(() => {
@@ -34,7 +35,6 @@ function App() {
   let unsubscribeFromAuth = null
 
   const componentDidMount = () => {
-
     unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -46,6 +46,7 @@ function App() {
         });
       };
       dispatchSetCurrentUser(userAuth);
+      // addCollectionAndDocuments("collections", collectionsArray.map(({ title, items }) => ({ title, items })))
     });
   };
 
