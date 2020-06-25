@@ -22,7 +22,6 @@ function App() {
     dispatch(setCurrentUser(user))
   };
 
-
   const currentUser = useSelector(state => selectCurrentUser(state));
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button';
+import Swal from "sweetalert2";
+
 import "./sign-in.style.scss";
 import Input from "../input/input.jsx";
 import CustomButton from "../custcom-button/custom-button.jsx";
@@ -19,7 +19,20 @@ export default function SignIN() {
             await auth.signInWithEmailAndPassword(accountPassword.email, accountPassword.password);
             setAccountPassword({ email: "", password: "" })
         } catch (error) {
-            console.log(error);
+            if (error.message === "There is no user record corresponding to this identifier. The user may have been deleted.") {
+                Swal.fire({
+                    icon: 'error',
+                    title: "登入失敗",
+                    text: '此帳號不存在，請重新輸入!',
+                })
+            }
+            if (error.message === "The password is invalid or the user does not have a password.") {
+                Swal.fire({
+                    icon: 'error',
+                    title: "登入失敗",
+                    text: '密碼輸入錯誤，請重新輸入!',
+                })
+            }
         }
         setAccountPassword({ ...accountPassword, email: "", password: "", });
     };

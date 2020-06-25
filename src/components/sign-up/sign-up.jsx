@@ -15,15 +15,16 @@ export default function SignUp() {
 
 
     const handleSubmit = async e => {
+
         const { displayName } = loginData;
         e.preventDefault();
+
         if (loginData.password !== loginData.confirmPassword) {
             Swal.fire({
                 icon: 'error',
                 title: '密碼不同',
                 text: '請再次從新輸入密碼!',
             })
-            return;
         }
         if (loginData.password.length < 6 && loginData.confirmPassword.length < 6) {
             Swal.fire({
@@ -31,7 +32,6 @@ export default function SignUp() {
                 title: '密碼長度小於6位',
                 text: '請再次從新輸入密碼!',
             })
-            return;
         }
         if (loginData.password.length > 6 && loginData.confirmPassword.length > 6 && loginData.password === loginData.confirmPassword) {
             Swal.fire({
@@ -39,7 +39,6 @@ export default function SignUp() {
                 title: '註冊成功',
                 text: '開始遊覽網站!',
             })
-            return;
         }
         try {
             const { user } = await auth.createUserWithEmailAndPassword(loginData.email, loginData.password);
@@ -54,6 +53,13 @@ export default function SignUp() {
             });
 
         } catch (error) {
+            if (error.message === "The email address is already in use by another account.") {
+                Swal.fire({
+                    icon: 'error',
+                    title: '註冊失敗',
+                    text: '電子信箱已被使用!',
+                })
+            }
             console.error(error);
         }
     }

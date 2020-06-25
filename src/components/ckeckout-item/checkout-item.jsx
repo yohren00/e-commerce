@@ -10,7 +10,7 @@ import { clearCartItem, removeItem, addItem } from "../../redux/cart/cart.action
 
 const CheckoutItem = () => {
     const cartItems = useSelector(state => selectCartItems(state));
-    const cartItemsCount = useSelector(state => clearCartItem(state));
+
     const dispatch = useDispatch();
     const dispatchClearCartItem = CartItem => {
         dispatch(clearCartItem(CartItem))
@@ -38,7 +38,7 @@ const CheckoutItem = () => {
                             <span className="right" onClick={() => dispatchAddItem(cartItem)}>&#10097;</span>
                         </span>
                         <span className="price">{price}</span>
-                        <div onClick={() => dispatchClearCartItem(cartItem)} className="remove-button"> &#10006;</div>
+                        <div className="remove-button" onClick={() => dispatchClearCartItem(cartItem)}>&#10006;</div>
                     </div>
                 )
             })

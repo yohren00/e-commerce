@@ -1,29 +1,23 @@
 import React from "react";
-import "./cart-item.styles.scss";
 import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+
+import "./cart-item.styles.scss";
+
 import { selectCartItems } from "../../redux/cart/cart.selectors.js";
+import { clearCartItem } from "../../redux/cart/cart.actions.js";
 
-
-// function CartItem({ item: { imageUrl, price, name, quantity } }) {
-
-//     return <>
-//         <div className="cart-item">
-//             <img src={imageUrl} alt="item" />
-//             <div className="item-details">
-//                 <span className="name">{name}</span>
-//                 <span className="price">{quantity} x ${price}</span>
-//             </div>
-//         </div>
-//     </>
-// };
-
-// export default CartItem;
 
 
 function CartItem() {
 
+    const dispatch = useDispatch();
+    const dispatchClearCartItem = CartItem => {
+        dispatch(clearCartItem(CartItem))
+    };
+
     const cartItem = useSelector(state => selectCartItems(state));
-    console.log(cartItem)
+
     return <>
         {
             cartItem.map(cartItem =>
@@ -32,6 +26,9 @@ function CartItem() {
                     <div className="item-details">
                         <span className="name">{cartItem.name}</span>
                         <span className="price">{cartItem.quantity} x ${cartItem.price}</span>
+                    </div>
+                    <div className="item-delect">
+                        <span className="delect" onClick={() => dispatchClearCartItem(cartItem)}> &#10006;</span>
                     </div>
                 </div>
             )
