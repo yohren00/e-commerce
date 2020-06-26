@@ -1,53 +1,57 @@
-import express from "express";
+/**
+ * stripe server
+ */
+// import express from "express";
 
-import cors from "cors";
+// import cors from "cors";
 
-import bodyParser from "body-parser";
+// import bodyParser from "body-parser";
 
-import path from "path";
+// import path from "path";
 
 
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const path = require("path");
+// const express = require("express");
+// const cors = require("cors");
+// const bodyParser = require("body-parser");
+// const path = require("path");
 
-if (process.env.NOKE_ENV !== "production") require("dotenv").config();
+// if (process.env.NOKE_ENV !== "production") require("dotenv").config();
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
-const app = express();
-const port = process.env.PORT || 5000;
+// const app = express();
+// const port = process.env.PORT || 5000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors());
+// app.use(cors());
 
-if (process.env.NOKE_ENV !== "production") {
-    app.use(express.static(path.join(__dirname, "client/build")));
+// if (process.env.NOKE_ENV !== "production") {
+//     app.use(express.static(path.join(__dirname, "client/build")));
 
-    app.get("*", function (req, res) {
-        res.sendFile(path.join(__dirname, "client/build", "index.html"))
-    })
-};
+//     app.get("*", function (req, res) {
+//         res.sendFile(path.join(__dirname, "client/build", "index.html"))
+//     })
+// };
 
-app.listen(port, error => {
-    if (error) throw error;
-    console.log("Server running on port" + port);
-});
+// app.listen(port, error => {
+//     if (error) throw error;
+//     console.log("Server running on port" + port);
+// });
 
-app.post("/payment", (req, res) => {
-    const body = {
-        sourcr: req.body.token.id,
-        amount: req.body.amount,
-        currency: "inr"
-    };
-    stripe.charges.create(body, (stripeErr, stripeRes) => {
-        if (stripeErr) {
-            res.status(500).send({ error: stripeErr })
-        } else {
-            res.status(200).send({ success: stripeRes })
-        }
-    })
-})
+// app.post("/payment", (req, res) => {
+//     const body = {
+//         sourcr: req.body.token.id,
+//         amount: req.body.amount,
+//         currency: "inr"
+//     };
+//     stripe.charges.create(body, (stripeErr, stripeRes) => {
+//         if (stripeErr) {
+//             res.status(500).send({ error: stripeErr })
+//         } else {
+//             res.status(200).send({ success: stripeRes })
+//         }
+//     })
+// })
+
