@@ -68,29 +68,7 @@ export default function SignIN() {
                     <CustomButton type="submit" >確認</CustomButton>
                     <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>使用google登入</CustomButton>
                 </div>
-                {/* <div>
-                    <TextField
-                        id="standard-basic"
-                        label="email"
-                        value={accountPassword.email}
-                        required
-                        onChange={handleChangeEmail}
-                    />
-                </div>
-                <div>
-                    <TextField
-                        id="standard-basic"
-                        label="password"
-                        type="password"
-                        required
-                        value={accountPassword.password}
-                        onChange={handleChangePassword}
-                    />
-                </div>
-                <div className="buttons">
-                    <Button className="button1" variant="contained" color="primary">登入</Button>
-                    <Button className="button2" variant="contained" color="primary">google登入</Button>
-                </div> */}
+
             </form>
         </div>
     </>

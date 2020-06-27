@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { selectCartItems, selectorCartItemsTotal } from "../../redux/cart/cart.selectors";
+import { selectorCartItemsTotal } from "../../redux/cart/cart.selectors";
 import CheckoutItem from "../../components/ckeckout-item/checkout-item.jsx";
 import StripeButton from "../../components/stripe-button/stripe-button.jsx";
 
@@ -10,6 +10,8 @@ import "./checkout.styles.scss";
 const CheckoutPage = () => {
     // const cartItems = useSelector(state => selectCartItems(state));
     const total = useSelector(state => selectorCartItemsTotal(state));
+
+
 
     return <>
         <div className="checkout-page">

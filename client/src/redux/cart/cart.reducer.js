@@ -4,7 +4,7 @@ import { addItemToCart, removeItemFromCart } from "./cart.utils.js";
 
 const INITIAL_STATE = {
     hidden: true,
-    cartItems: []
+    cartItems: [],
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
@@ -29,6 +29,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 cartItems: removeItemFromCart(state.cartItems, action.payload)
+            }
+        case CartActionTypes.CLEAR_CART_ALL_ITEM:
+            return {
+                ...state,
+                cartItems: [],
             }
         default:
             return state;
