@@ -29,7 +29,7 @@ const StripeButton = ({ price }) => {
             alert("成功付款");
             dispatchclearCartAllItem();
         }).catch(error => {
-            console.log("付款失敗：", error);
+            console.log("付款失敗：", error.response);
             alert(
                 "付款失敗，請確認信用卡資訊是否有誤"
             )
