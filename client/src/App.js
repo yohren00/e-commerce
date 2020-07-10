@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 
-import './App.css';
+import './global.styles.scss';
 
 import HomePage from "./pages/hmoepage/homepage.jsx";
 import ShopPage from "./pages/shop/shop.jsx";

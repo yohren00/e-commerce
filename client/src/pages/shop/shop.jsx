@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import CollectionOverview from "../../components/collection-overview/collection-overview.jsx";
 import Collection from "../collection/collection.jsx";
-import { fetchCollectionsStartAsync } from "../../redux/shop/shop.action.js";
+import { fetchCollectionsStart } from "../../redux/shop/shop.action.js";
 import WithSpinner from "../../components/with-spinner/with-spinner.jsx";
 import { selectIsCollectionFetching, selectCollectionsLoaded } from "../../redux/shop/shop.selectors.js";
 
@@ -24,7 +24,7 @@ const Shop = ({ match }) => {
 
     const dispatch = useDispatch();
     const dispatchUpdateCollections = () => (
-        dispatch(fetchCollectionsStartAsync()));
+        dispatch(fetchCollectionsStart()));
 
 
     const componentDidMount = () => {
